@@ -122,9 +122,6 @@ FAUST_SECRET_KEY=your-secret-key-here
 
 ## Documentation 🔎
 
-> [!NOTE]
-> We are continuously adding new docs for [Faustjs.org](https://faustjs.org/docs)
-
 - [Faust.js Documentation](https://faustjs.org/docs/)
 - [Headless Platform Documentation](https://wpengine.com/headless-wordpress/)
 - [WPGraphQL Documentation](https://developers.wpengine.com/docs/atlas/overview/)
