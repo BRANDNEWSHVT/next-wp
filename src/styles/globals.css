@@ -1,0 +1,339 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ========================================
+   NEWSPRINT DESIGN TOKENS
+   ======================================== */
+
+:root {
+  /* Core Newsprint Colors */
+  --background: #f9f9f7;
+  --foreground: #111111;
+  --card: #f9f9f7;
+  --card-foreground: #111111;
+  --popover: #f9f9f7;
+  --popover-foreground: #111111;
+  --primary: #111111;
+  --primary-foreground: #f9f9f7;
+  --secondary: #e5e5e0;
+  --secondary-foreground: #111111;
+  --muted: #e5e5e0;
+  --muted-foreground: #737373;
+  --accent: #cc0000;
+  --accent-foreground: #f9f9f7;
+  --destructive: #cc0000;
+  --destructive-foreground: #f9f9f7;
+  --border: #111111;
+  --input: #111111;
+  --ring: #111111;
+
+  /* Zero radius - Newsprint is sharp */
+  --radius: 0px;
+
+  /* Neutral shades */
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-400: #a3a3a3;
+  --neutral-500: #737373;
+  --neutral-600: #525252;
+  --neutral-700: #404040;
+}
+
+/* No dark mode for Newsprint - light only */
+.dark {
+  --background: #f9f9f7;
+  --foreground: #111111;
+}
+
+@theme inline {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Newsprint font families */
+  --font-serif: "Playfair Display", "Times New Roman", serif;
+  --font-body: "Lora", Georgia, serif;
+  --font-sans: "Inter", "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    border-radius: 0 !important;
+  }
+
+  html {
+    font-family: "Inter", "Helvetica Neue", sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23111111' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", serif;
+  }
+
+  p,
+  article,
+  .prose {
+    font-family: "Lora", Georgia, serif;
+  }
+
+  code,
+  pre,
+  .font-mono {
+    font-family: "JetBrains Mono", monospace;
+  }
+}
+
+/* ========================================
+   CONTAINER
+   ======================================== */
+
+.container {
+  width: 100%;
+  max-width: 80rem; /* 1280px */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* ========================================
+   NEWSPRINT UTILITIES
+   ======================================== */
+
+/* Sharp corners enforcement */
+.sharp-corners,
+.sharp-corners * {
+  border-radius: 0px !important;
+}
+
+/* Newsprint texture overlay */
+.newsprint-texture {
+  position: relative;
+}
+
+.newsprint-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(0deg, transparent 98%, rgba(0, 0, 0, 0.02) 100%),
+    linear-gradient(90deg, transparent 98%, rgba(0, 0, 0, 0.02) 100%);
+  background-size: 3px 3px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Hard shadow hover effect */
+.hard-shadow-hover {
+  transition: all 200ms ease-out;
+}
+
+.hard-shadow-hover:hover {
+  box-shadow: 4px 4px 0px 0px var(--foreground);
+  transform: translate(-2px, -2px);
+}
+
+/* Inverted section (black bg, white text) */
+.inverted {
+  @apply bg-foreground text-background;
+}
+
+.inverted a {
+  @apply text-background;
+}
+
+.inverted .accent {
+  @apply text-accent;
+}
+
+/* Drop cap for articles */
+.drop-cap::first-letter {
+  float: left;
+  font-family: "Playfair Display", serif;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+/* Halftone image placeholder */
+.halftone-placeholder {
+  background: radial-gradient(#000 1px, transparent 1px);
+  background-size: 16px 16px;
+  opacity: 0.1;
+}
+
+/* Grayscale images with sepia hover */
+.newsprint-image {
+  filter: grayscale(100%);
+  transition: filter 300ms ease-out;
+}
+
+.newsprint-image:hover {
+  filter: grayscale(0%) sepia(50%);
+}
+
+/* Ornamental divider */
+.ornament-divider {
+  @apply py-8 text-center text-2xl text-neutral-400 tracking-[1em];
+  font-family: "Playfair Display", serif;
+}
+
+/* Editorial red accent */
+.editorial-accent {
+  @apply text-accent;
+}
+
+/* Uppercase label style */
+.label-uppercase {
+  @apply uppercase tracking-widest text-xs;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Newspaper column borders */
+.column-border-r {
+  @apply border-r border-foreground;
+}
+
+.column-border-b {
+  @apply border-b border-foreground;
+}
+
+@media (max-width: 767px) {
+  .column-border-r {
+    border-right: none;
+  }
+}
+
+/* Focus states for accessibility */
+.focus-newsprint:focus-visible {
+  @apply outline-none ring-2 ring-foreground ring-offset-2;
+}
+
+/* ========================================
+   TYPOGRAPHY OVERRIDES
+   ======================================== */
+
+.prose {
+  font-family: "Lora", Georgia, serif;
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-links: var(--foreground);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--foreground);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: "Playfair Display", serif;
+}
+
+.prose a {
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}
+
+/* Justified text for newspaper columns */
+.text-justify-newsprint {
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* ========================================
+   SEMANTIC COLOR UTILITIES
+   Use these instead of hardcoded hex values
+   ======================================== */
+
+@utility bg-newsprint {
+  background-color: var(--background);
+}
+
+@utility bg-newsprint-inverted {
+  background-color: var(--foreground);
+}
+
+@utility bg-newsprint-secondary {
+  background-color: var(--secondary);
+}
+
+@utility text-newsprint {
+  color: var(--foreground);
+}
+
+@utility text-newsprint-inverted {
+  color: var(--background);
+}
+
+@utility text-newsprint-accent {
+  color: var(--accent);
+}
+
+@utility text-newsprint-muted {
+  color: var(--muted-foreground);
+}
+
+@utility border-newsprint {
+  border-color: var(--foreground);
+}
+
+@utility border-newsprint-inverted {
+  border-color: var(--background);
+}
+
+@utility ring-newsprint {
+  --tw-ring-color: var(--foreground);
+}
+
+@utility decoration-newsprint-accent {
+  text-decoration-color: var(--accent);
+}
