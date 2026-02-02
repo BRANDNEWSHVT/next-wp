@@ -21,6 +21,9 @@ importers:
       '@faustwp/core':
         specifier: ^3.2.6
         version: 3.3.4(@apollo/client@3.14.0(@types/react@19.2.10)(graphql-ws@6.0.7(graphql@16.12.0)(ws@8.19.0))(graphql@16.12.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(next@16.1.6(@babel/core@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@graphql-typed-document-node/core':
+        specifier: ^3.2.0
+        version: 3.2.0(graphql@16.12.0)
       '@hugeicons/core-free-icons':
         specifier: ^3.1.1
         version: 3.1.1
