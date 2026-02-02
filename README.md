@@ -1,4 +1,6 @@
-# ![Faust.js Logo](./.github/assets/faustjs-logo.svg) Faust.js Starter Kit
+![Faust.js Logo](./.github/assets/faustjs-logo.svg) 
+
+# Faust.js Starter Kit
 
 This repository contains a starter kit to get you up and running quickly on [WP Engine's Headless Platform](https://wpengine.com/headless-wordpress/) with a WordPress site skeleton for more advanced developers.
 
@@ -6,24 +8,83 @@ This repository contains a starter kit to get you up and running quickly on [WP 
 
 To get started on WP Engine's Platform please follow the docs here [https://developers.wpengine.com/docs/atlas/getting-started/create-app/](https://developers.wpengine.com/docs/atlas/getting-started/create-app/)
 
+## WordPress Setup
+
+### Required Plugins
+
+Install and activate the following plugins on your WordPress site:
+
+1. **[WPGraphQL](https://wordpress.org/plugins/wp-graphql/)** - Exposes WordPress data through a GraphQL API
+2. **[Faust.js](https://wordpress.org/plugins/faustwp/)** - Enables headless WordPress features and previews
+3. **[WPGraphQL Content Blocks](https://github.com/wpengine/wp-graphql-content-blocks)** - Exposes Gutenberg blocks via GraphQL (optional)
+
+### Plugin Configuration
+
+#### Faust.js Plugin Settings
+
+1. Navigate to **Settings → Faust** in your WordPress admin
+2. Configure the following:
+   - **Front-end site URL**: Your Next.js application URL (e.g., `http://localhost:3000` for development)
+   - **Secret Key**: Generate a secret key and copy it for your `.env.local` file
+
+#### WPGraphQL Settings
+
+1. Navigate to **GraphQL → Settings**
+2. Enable **Public Introspection** (for development)
+3. Set **GraphQL Endpoint** (default: `/graphql`)
+
+### Menu Setup
+
+Create the following menus in **Appearance → Menus**:
+
+1. **Primary Menu**: Assign to the "Primary" location
+2. **Footer Menu**: Assign to the "Footer" location
+
+### Environment Variables
+
+Create a `.env.local` file in your project root:
+
+```bash
+# Your WordPress site URL (without trailing slash)
+NEXT_PUBLIC_WORDPRESS_URL=https://your-wordpress-site.com
+
+# Faust.js secret key from WordPress admin (Settings → Faust)
+FAUST_SECRET_KEY=your-secret-key-here
+```
+
 ## Project Structure
 
 ```
 ├── src/
-│   ├── __generated__/
-│   ├── components/
-│   ├── fragments/
-│   ├── pages/
-│   ├── queries/
-│   ├── styles/
-│   └── wp-templates/
-├── DEVELOPMENT.md
-├── faust.config.js
-├── next.config.js
+│   ├── __generated__/     # Auto-generated GraphQL types
+│   ├── app/               # Next.js App Router pages
+│   │   ├── api/           # API routes
+│   │   ├── error.tsx      # Error page
+│   │   ├── loading.tsx    # Loading state
+│   │   ├── not-found.tsx  # 404 page
+│   │   └── layout.tsx     # Root layout
+│   ├── components/        # React components
+│   │   ├── ErrorBoundary.tsx
+│   │   ├── Header.tsx
+│   │   ├── Footer.tsx
+│   │   └── PageTransition.tsx
+│   ├── lib/               # Utility functions
+│   │   ├── apollo-client.ts
+│   │   ├── queries.ts
+│   │   ├── rate-limit.ts
+│   │   └── sanitize.ts
+│   ├── styles/            # Global styles
+│   └── wp-templates/      # WordPress template components
+│       ├── archive.tsx
+│       ├── front-page.tsx
+│       ├── page.tsx
+│       └── single.tsx
+├── codegen.ts             # GraphQL codegen config
+├── faust.config.js        # Faust.js configuration
+├── next.config.js         # Next.js configuration
 ├── package.json
 ├── possibleTypes.json
-└── README.md
-└── screenshots
+└── tsconfig.json
 ```
 
 ## Available Commands
@@ -39,31 +100,16 @@ To get started on WP Engine's Platform please follow the docs here [https://deve
 | `format`        | `prettier . --write`                                                   | Format code with Prettier          |
 | `test:format`   | `prettier . --check`                                                   | Check code formatting              |
 
-## Screenshots
+## Features
 
-<details>
-    <summary>View Screenshots</summary>
-
-![Front Page](screenshots/front-page.png)
-
-![Category Page](screenshots/category-page.png)
-
-![Single Page](screenshots/single-page.png)
-
-![Single Post](screenshots/single-post.png)
-
-</details>
-
-## Our Community 🩵
-
-At WP Engine, we have a strong community built around headless WordPress to support you with your journey.
-
-- [Discord Headless Community Channel](https://faustjs.org/discord)
-- [Fortnightly Headless Community Call](https://discord.gg/headless-wordpress-836253505944813629?event=1371472220592930857)
-- [WP Engine's Headless Platform developer community](https://wpengine.com/builders/headless)
-- [WP Engine`s Builders YouTube Channel](https://www.youtube.com/@WPEngineBuilders)
-- [WP Engine's Headless Platform](https://wpengine.com/headless-wordpress/)
-- [WP Engines Headless Platform Docs](https://developers.wpengine.com/docs/atlas/overview/)
+- **Next.js 16** with App Router
+- **TypeScript** with strict mode enabled
+- **GSAP** page transitions
+- **HTML Sanitization** with DOMPurify for XSS protection
+- **Rate Limiting** on API routes
+- **Error Boundaries** for graceful error handling
+- **SEO Optimized** with meta tags, Open Graph, and JSON-LD
+- **Accessible** with proper ARIA labels and keyboard navigation
 
 ## Plugin Ecosystem 🪄
 
@@ -82,15 +128,3 @@ At WP Engine, we have a strong community built around headless WordPress to supp
 - [Faust.js Documentation](https://faustjs.org/docs/)
 - [Headless Platform Documentation](https://wpengine.com/headless-wordpress/)
 - [WPGraphQL Documentation](https://developers.wpengine.com/docs/atlas/overview/)
-
-## Contributions
-
-## Contributor License Agreement
-
-All external contributors to WP Engine products must have a signed Contributor License Agreement (CLA) in place before the contribution may be accepted into any WP Engine codebase.
-
-1. [Submit your name and email](https://wpeng.in/cla/)
-2. 📝 Sign the CLA emailed to you
-3. 📥 Receive copy of signed CLA
-
-❤️ Thank you for helping us fulfill our legal obligations in order to continue empowering builders through headless WordPress.
