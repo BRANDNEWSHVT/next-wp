@@ -72,6 +72,11 @@ export default async function Page({
   const { slug } = await params;
   const page = await getPageBySlug(slug);
 
+  if (!page) {
+    const { notFound } = await import("next/navigation");
+    notFound();
+  }
+
   return (
     <Section>
       <Container>

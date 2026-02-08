@@ -2,6 +2,7 @@
 // Used to fetch data from a WordPress site using the WordPress REST API
 // Types are imported from `wp.d.ts`
 
+import { cache } from "react";
 import querystring from "query-string";
 import type {
   Post,
@@ -222,19 +223,19 @@ export async function getPostById(id: number): Promise<Post> {
   return wordpressFetch<Post>(`/wp-json/wp/v2/posts/${id}`);
 }
 
-export async function getPostBySlug(slug: string): Promise<Post> {
+export const getPostBySlug = cache(async (slug: string): Promise<Post> => {
   return wordpressFetch<Post[]>("/wp-json/wp/v2/posts", { slug }).then(
     (posts) => posts[0]
   );
-}
+});
 
 export async function getAllCategories(): Promise<Category[]> {
   return wordpressFetch<Category[]>("/wp-json/wp/v2/categories");
 }
 
-export async function getCategoryById(id: number): Promise<Category> {
+export const getCategoryById = cache(async (id: number): Promise<Category> => {
   return wordpressFetch<Category>(`/wp-json/wp/v2/categories/${id}`);
-}
+});
 
 export async function getCategoryBySlug(slug: string): Promise<Category> {
   return wordpressFetch<Category[]>("/wp-json/wp/v2/categories", { slug }).then(
@@ -260,9 +261,9 @@ export async function getAllTags(): Promise<Tag[]> {
   return wordpressFetch<Tag[]>("/wp-json/wp/v2/tags");
 }
 
-export async function getTagById(id: number): Promise<Tag> {
+export const getTagById = cache(async (id: number): Promise<Tag> => {
   return wordpressFetch<Tag>(`/wp-json/wp/v2/tags/${id}`);
-}
+});
 
 export async function getTagBySlug(slug: string): Promise<Tag> {
   return wordpressFetch<Tag[]>("/wp-json/wp/v2/tags", { slug }).then(
@@ -278,19 +279,19 @@ export async function getPageById(id: number): Promise<Page> {
   return wordpressFetch<Page>(`/wp-json/wp/v2/pages/${id}`);
 }
 
-export async function getPageBySlug(slug: string): Promise<Page> {
+export const getPageBySlug = cache(async (slug: string): Promise<Page> => {
   return wordpressFetch<Page[]>("/wp-json/wp/v2/pages", { slug }).then(
     (pages) => pages[0]
   );
-}
+});
 
 export async function getAllAuthors(): Promise<Author[]> {
   return wordpressFetch<Author[]>("/wp-json/wp/v2/users");
 }
 
-export async function getAuthorById(id: number): Promise<Author> {
+export const getAuthorById = cache(async (id: number): Promise<Author> => {
   return wordpressFetch<Author>(`/wp-json/wp/v2/users/${id}`);
-}
+});
 
 export async function getAuthorBySlug(slug: string): Promise<Author> {
   return wordpressFetch<Author[]>("/wp-json/wp/v2/users", { slug }).then(
@@ -323,9 +324,9 @@ export async function getPostsByTagSlug(tagSlug: string): Promise<Post[]> {
   return wordpressFetch<Post[]>("/wp-json/wp/v2/posts", { tags: tag.id });
 }
 
-export async function getFeaturedMediaById(id: number): Promise<FeaturedMedia> {
+export const getFeaturedMediaById = cache(async (id: number): Promise<FeaturedMedia> => {
   return wordpressFetch<FeaturedMedia>(`/wp-json/wp/v2/media/${id}`);
-}
+});
 
 export async function searchCategories(query: string): Promise<Category[]> {
   return wordpressFetch<Category[]>("/wp-json/wp/v2/categories", {

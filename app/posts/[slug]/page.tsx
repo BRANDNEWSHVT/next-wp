@@ -71,16 +71,21 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  const featuredMedia = post.featured_media
-    ? await getFeaturedMediaById(post.featured_media)
-    : null;
-  const author = await getAuthorById(post.author);
+
+  // Parallel fetch for independent data (eliminates waterfall)
+  const [featuredMedia, author, category] = await Promise.all([
+    post.featured_media
+      ? getFeaturedMediaById(post.featured_media)
+      : Promise.resolve(null),
+    getAuthorById(post.author),
+    getCategoryById(post.categories[0]),
+  ]);
+
   const date = new Date(post.date).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
-  const category = await getCategoryById(post.categories[0]);
 
   return (
     <Section>

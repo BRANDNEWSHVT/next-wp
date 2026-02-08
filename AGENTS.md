@@ -10,10 +10,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 | Skill | When to Use | Trigger Phrases |
 |-------|-------------|-----------------|
-| `project:frontend-design` | Building web components, pages, UI artifacts | "build a component", "create a page", "design this" |
-| `project:copywriting` | Marketing copy for pages | "write copy for", "improve this copy", "headline help", "CTA" |
-| `project:vercel-react-best-practices` | React/Next.js code review & optimization | "optimize", "performance", "review code", "best practices" |
-| `project:web-design-guidelines` | UI/UX compliance review | "review my UI", "check accessibility", "audit design" |
+| `frontend-design` | Building web components, pages, UI artifacts | "build a component", "create a page", "design this" |
+| `copywriting` | Marketing copy for pages | "write copy for", "improve this copy", "headline help", "CTA" |
+| `vercel-react-best-practices` | React/Next.js code review & optimization | "optimize", "performance", "review code", "best practices" |
+| `web-design-guidelines` | UI/UX compliance review | "review my UI", "check accessibility", "audit design" |
 
 ### Superpowers Skills (General workflows)
 
@@ -39,8 +39,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - "I need more context first" → Skill check comes BEFORE clarifying questions.
 - "Let me explore the codebase first" → Skills tell you HOW to explore.
 - "This doesn't need a formal skill" → If a skill exists, use it.
-- "I know React best practices" → Use `project:vercel-react-best-practices` anyway.
-- "The design looks fine" → Use `project:web-design-guidelines` to verify.
+- "I know React best practices" → Use `vercel-react-best-practices` anyway.
+- "The design looks fine" → Use `web-design-guidelines` to verify.
 
 ## Project Memory Management
 
