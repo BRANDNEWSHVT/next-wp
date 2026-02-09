@@ -14,6 +14,7 @@ import type {
 } from "./wordpress.d";
 
 const baseUrl = process.env.WORDPRESS_URL;
+const REQUEST_TIMEOUT_MS = 10000;
 
 if (!baseUrl) {
   throw new Error("WORDPRESS_URL environment variable is not defined");
@@ -37,74 +38,92 @@ export interface WordPressResponse<T> {
   headers: WordPressPaginationHeaders;
 }
 
+type QueryParams = Record<string, string | number | boolean | undefined>;
+
 // Keep original function for backward compatibility
 async function wordpressFetch<T>(
   path: string,
-  query?: Record<string, any>
+  query?: QueryParams
 ): Promise<T> {
   const url = `${baseUrl}${path}${
     query ? `?${querystring.stringify(query)}` : ""
   }`;
   const userAgent = "Next.js WordPress Client";
 
-  const response = await fetch(url, {
-    headers: {
-      "User-Agent": userAgent,
-    },
-    next: {
-      tags: ["wordpress"],
-      revalidate: 3600, // 1 hour cache
-    },
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-  if (!response.ok) {
-    throw new WordPressAPIError(
-      `WordPress API request failed: ${response.statusText}`,
-      response.status,
-      url
-    );
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": userAgent,
+      },
+      signal: controller.signal,
+      next: {
+        tags: ["wordpress"],
+        revalidate: 3600, // 1 hour cache
+      },
+    });
+
+    if (!response.ok) {
+      throw new WordPressAPIError(
+        `WordPress API request failed: ${response.statusText}`,
+        response.status,
+        url
+      );
+    }
+
+    return response.json();
+  } finally {
+    clearTimeout(timeoutId);
   }
-
-  return response.json();
 }
 
 // New function for paginated requests
 async function wordpressFetchWithPagination<T>(
   path: string,
-  query?: Record<string, any>
+  query?: QueryParams
 ): Promise<WordPressResponse<T>> {
   const url = `${baseUrl}${path}${
     query ? `?${querystring.stringify(query)}` : ""
   }`;
   const userAgent = "Next.js WordPress Client";
 
-  const response = await fetch(url, {
-    headers: {
-      "User-Agent": userAgent,
-    },
-    next: {
-      tags: ["wordpress"],
-      revalidate: 3600, // 1 hour cache
-    },
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-  if (!response.ok) {
-    throw new WordPressAPIError(
-      `WordPress API request failed: ${response.statusText}`,
-      response.status,
-      url
-    );
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": userAgent,
+      },
+      signal: controller.signal,
+      next: {
+        tags: ["wordpress"],
+        revalidate: 3600, // 1 hour cache
+      },
+    });
+
+    if (!response.ok) {
+      throw new WordPressAPIError(
+        `WordPress API request failed: ${response.statusText}`,
+        response.status,
+        url
+      );
+    }
+
+    const data = await response.json();
+
+    return {
+      data,
+      headers: {
+        total: parseInt(response.headers.get("X-WP-Total") || "0", 10),
+        totalPages: parseInt(response.headers.get("X-WP-TotalPages") || "0", 10),
+      },
+    };
+  } finally {
+    clearTimeout(timeoutId);
   }
-
-  const data = await response.json();
-
-  return {
-    data,
-    headers: {
-      total: parseInt(response.headers.get("X-WP-Total") || "0", 10),
-      totalPages: parseInt(response.headers.get("X-WP-TotalPages") || "0", 10),
-    },
-  };
 }
 
 // New function for paginated posts

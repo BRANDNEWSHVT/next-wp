@@ -65,7 +65,7 @@ export default function Home() {
     <>
       {/* Hero Section */}
       <Section className="py-20 md:py-28 lg:py-36">
-        <Container className="max-w-6xl">
+        <Container className="max-w-5xl">
           {/* Decorative element */}
           <div className="flex items-center gap-4 mb-10">
             <div className="h-1 w-20 bg-foreground" />
@@ -112,7 +112,7 @@ export default function Home() {
 
       {/* Navigation Grid Section */}
       <Section className="py-20 md:py-28">
-        <Container className="max-w-6xl">
+        <Container className="max-w-5xl">
           {/* Section header */}
           <div className="flex items-end justify-between mb-12">
             <div>
@@ -193,7 +193,7 @@ export default function Home() {
 
       {/* Inverted Feature Section */}
       <Section className="bg-foreground text-background py-20 md:py-28">
-        <Container className="max-w-6xl">
+        <Container className="max-w-5xl">
           <Box cols={{ base: 1, md: 2 }} gap={12} className="items-center">
             {/* Left: Stats */}
             <div className="space-y-8">
@@ -235,7 +235,7 @@ export default function Home() {
 
       {/* Tech Stack Section */}
       <Section className="py-20 md:py-28">
-        <Container className="max-w-6xl">
+        <Container className="max-w-5xl">
           <div className="text-center max-w-3xl mx-auto">
             <span className="text-sm uppercase tracking-widest text-muted-foreground font-mono">
               Technology

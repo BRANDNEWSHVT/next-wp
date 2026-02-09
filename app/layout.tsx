@@ -62,14 +62,7 @@ const Nav = ({ className, children, id }: NavProps) => {
         className="max-w-5xl mx-auto py-4 px-6 sm:px-8 flex justify-between items-center"
       >
         <Link className="hover:opacity-75 transition-all flex gap-4 items-center" href="/">
-          <Image
-            src={Logo}
-            alt="Logo"
-            loading="eager"
-            className="dark:invert"
-            width={42}
-            height={26.44}
-          ></Image>
+          <Image src={Logo} alt="Logo" loading="eager" className="dark:invert" height={60} />
           <h2 className="text-sm">{siteConfig.site_name}</h2>
         </Link>
         {children}
@@ -99,13 +92,7 @@ const Footer = () => {
           <div className="flex flex-col gap-6 not-prose">
             <Link href="/">
               <h3 className="sr-only">{siteConfig.site_name}</h3>
-              <Image
-                src={Logo}
-                alt="Logo"
-                className="dark:invert"
-                width={42}
-                height={26.44}
-              ></Image>
+              <Image src={Logo} alt="Logo" className="dark:invert" height={60}></Image>
             </Link>
             <p>
               <Balancer>{siteConfig.site_description}</Balancer>

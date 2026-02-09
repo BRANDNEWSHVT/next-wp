@@ -1,7 +1,21 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { timingSafeEqual } from "crypto";
 
 export const maxDuration = 30;
+
+/**
+ * Timing-safe string comparison to prevent timing attacks on secret validation
+ */
+function secureCompare(a: string | null, b: string | undefined): boolean {
+  if (!a || !b) return false;
+  if (a.length !== b.length) return false;
+  
+  const bufferA = Buffer.from(a);
+  const bufferB = Buffer.from(b);
+  
+  return timingSafeEqual(bufferA, bufferB);
+}
 
 /**
  * WordPress webhook handler for content revalidation
@@ -14,7 +28,7 @@ export async function POST(request: NextRequest) {
     const requestBody = await request.json();
     const secret = request.headers.get("x-webhook-secret");
 
-    if (secret !== process.env.WORDPRESS_WEBHOOK_SECRET) {
+    if (!secureCompare(secret, process.env.WORDPRESS_WEBHOOK_SECRET)) {
       console.error("Invalid webhook secret");
       return NextResponse.json(
         { message: "Invalid webhook secret" },
