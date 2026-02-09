@@ -122,3 +122,43 @@ Required environment variables (see `.env.example`):
 - Tailwind CSS with shadcn/ui components
 - React Hook Form for form handling
 - Lucide React for icons
+
+## Frontend Style Guide
+
+**MANDATORY: Read `prompt.xml` before any frontend work.**
+
+The `prompt.xml` file contains the complete frontend design system specification:
+
+### Design Systems
+1. **Craft Design System** (`@/components/craft`) - Layout primitives & prose
+   - `Section`, `Container`, `Box` for page structure
+   - `Article`, `Prose` for WordPress content
+   - Built-in typography handling
+
+2. **shadcn/ui** (`@/components/ui/*`) - Interactive UI components
+   - Button, Input, Badge, Form, Select, Sheet, etc.
+   - Never recreate these - use existing components
+
+### Design Style: Minimalist Monochrome
+- **Colors**: Pure black (#000000) and white (#FFFFFF) only
+- **Typography**: Serif fonts (Playfair Display, Source Serif 4)
+- **Corners**: Zero border-radius everywhere (sharp 90° corners)
+- **Shadows**: None - depth through color inversion and borders
+- **Animations**: Instant (100ms max transitions)
+
+### Quick Reference
+
+| Need | Use |
+|------|-----|
+| Page layout | `Section`, `Container` from craft |
+| Grid/flex | `Box` from craft |
+| WordPress content | `Article` or `Prose` from craft |
+| Buttons, forms | shadcn/ui components |
+| Cards | Custom div with `border-2 border-foreground p-6` |
+
+### Non-Negotiables
+1. Oversized hero typography (8xl-9xl)
+2. Heavy horizontal rules between sections
+3. Zero border-radius on ALL elements
+4. Color inversion for emphasis (no accent colors)
+5. No shadows, ever
