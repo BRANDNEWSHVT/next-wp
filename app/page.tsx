@@ -291,13 +291,6 @@ export default function Home() {
               Deploy with Vercel <ArrowRight className="inline ml-3 h-4 w-4" />
             </a>
           </div>
-
-          {/* Decorative footer element */}
-          <div className="flex items-center justify-center gap-4 mt-20">
-            <div className="h-4 w-4 border-2 border-foreground" />
-            <div className="h-[2px] w-32 bg-foreground" />
-            <div className="h-4 w-4 border-2 border-foreground" />
-          </div>
         </Container>
       </Section>
     </>

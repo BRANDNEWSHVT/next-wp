@@ -30,20 +30,18 @@
     "react-hook-form": "^7.58.1",
     "react-wrap-balancer": "^1.1.1",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7",
     "use-debounce": "^10.0.5",
     "zod": "^3.25.67"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^20.19.1",
     "@types/react": "19.2.13",
     "@types/react-dom": "19.2.3",
-    "autoprefixer": "^10.4.21",
     "eslint": "^9.29.0",
     "eslint-config-next": "16.1.6",
     "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.8.3"
   },
   "pnpm": {
