@@ -52,7 +52,7 @@ const navigationItems = [
     description: "Navigate through content categories",
   },
   {
-    href: "https://github.com/9d8dev/next-wp/blob/main/README.md",
+    href: "https://github.com/brandnewshvt/next-wp/blob/main/README.md",
     icon: BookOpen,
     title: "Documentation",
     description: "Learn how to build with next-wp",
