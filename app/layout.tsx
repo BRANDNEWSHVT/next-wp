@@ -5,7 +5,6 @@ import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { MobileNav } from "@/components/nav/mobile-nav";
-import { Analytics } from "@vercel/analytics/react";
 import { Button } from "@/components/ui/button";
 
 import { mainMenu, contentMenu } from "@/menu.config";
@@ -18,6 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { Metadata } from "next";
+import Script from "next/script";
 
 const font = FontSans({
   subsets: ["latin"],
@@ -34,6 +34,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const projectId = "vfaxicehci";
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -48,7 +50,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <Footer />
         </ThemeProvider>
-        <Analytics />
+        <Script
+          id="microsoft-clarity-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
+                        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                    })(window, document, "clarity", "script", "${projectId}");`,
+          }}
+        />
       </body>
     </html>
   );
